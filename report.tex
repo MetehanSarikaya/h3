@@ -1,0 +1,144 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
+\lstdefinestyle{CppStyle}{
+    language=C++,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!40!black},
+    numbers=left,
+    numberstyle=\tiny,
+    breaklines=true,
+    frame=single
+}
+
+\title{Project 3 Report: 2048 Game\\
+\large CMPE 230 Systems Programming - Spring 2026}
+
+\author{
+Student 1 Name, Student 1 ID \\
+Student 2 Name, Student 2 ID
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Report Guidelines}
+
+This report must explain \textbf{how your 2048 game works internally}.
+
+Focus on:
+\begin{itemize}
+    \item how the user interface is structured,
+    \item how game state is represented and updated,
+    \item how keyboard and button events are handled,
+    \item how Qt signals, slots, and connections are used,
+    \item how the GUI stays synchronized with the internal board.
+\end{itemize}
+
+\section{Project Overview}
+
+Briefly describe 2048 game, supported modes, overall execution flow from application start to game end.
+
+\section{User Interface Design}
+
+Describe the structure of the graphical interface. Explain the role of the main window, the board/grid area, score displays, buttons, overlays, and any additional widgets. Discuss how layouts are used to organize widgets and how visible UI components are connected to the underlying game logic.
+
+Include at least one screenshot or diagram of your interface. The figure should clearly label important UI elements such as the tile grid, score displays, control buttons, and mode-related widgets.
+
+\section{Game State Representation}
+
+Explain how the game state is represented internally. Describe how the board is stored, how empty cells are represented, how tile values are updated, and how the target value is checked.
+
+Discuss how scores, best scores, and undo history are maintained. Explain what information is saved before each move and how previous states are restored during Undo operations.
+
+\section{Event-Driven Architecture and Game Logic}
+
+Explain how your application reacts to user actions and timer-based events using Qt's event-driven architecture. Describe the sequence of operations that occur after keyboard input, button clicks, or timer events, and explain how these events trigger game logic functions.
+
+\subsection{Keyboard and Button Events}
+
+Describe how movement keys are processed, which keys are supported, how invalid input is ignored, and how input is disabled after win/loss conditions.
+
+Explain how buttons such as Restart and Undo trigger their corresponding actions.
+
+\subsection{Signals, Slots, and Connections}
+
+Explain how Qt's signal-slot mechanism is used to connect UI components, timers, and game logic functions.
+
+Provide a table summarizing the main signal-slot connections used in your project.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Signal} & \textbf{Slot / Function} & \textbf{Purpose} \\
+\hline
+\texttt{restartButton.clicked()} & \texttt{restartGame()} & Reset board and score \\
+\hline
+\texttt{undoButton.clicked()} & \texttt{undoMove()} & Restore previous state \\
+\hline
+\texttt{hardModeTimer.timeout()} & \texttt{makeRandomMove()} & Execute timed random move \\
+\hline
+\end{tabular}
+\caption{Main Qt signal-slot connections used in the project.}
+\end{table}
+
+Explain where these connections are created, which object emits each signal, which slot receives it, and what state changes occur after the slot executes.
+
+\subsection{Move and Merge Logic}
+
+Explain how a single move is processed internally. Describe how tiles slide and merge, how scores are updated, how valid moves are detected, and how new tiles are generated after successful moves.
+
+Discuss how your implementation prevents illegal double merges and how merge ordering is handled when multiple equal tiles appear in sequence.
+
+\subsection{Timer-Based Events}
+
+Explain how Hard Mode is implemented using timer events. Describe how the timer triggers random valid moves and how the timer is reset after player actions.
+
+\section{Code Structure}
+
+Describe the organization of your codebase. Explain the purpose of major classes and files such as \texttt{main.cpp}, \texttt{MainWindow}, board-management classes, tile-related classes, helper utilities, and timer/event management components.
+
+Explain how responsibilities are divided between classes, what the code does, which parts of the game state it modifies, which UI elements are affected.
+
+\section{Testing and Debugging}
+
+Discuss important edge cases such as full boards, repeated equal tiles, Undo at the initial state, and reaching 2048 in different modes.
+
+\section{Challenges and Solutions}
+
+Describe at least two major implementation challenges encountered during development. Examples may include preventing double merges, synchronizing the UI with the board state, implementing unlimited Undo, handling timers correctly, or disabling input after game termination.
+
+For each challenge, explain the solution clearly and concretely.
+
+\section{Conclusion}
+
+Summarize the strongest aspect of your design, the most difficult implementation problem, and possible future improvements.
+
+\section*{AI Usage Statement}
+
+The report must be written by you.
+
+If AI tools were used:
+\begin{itemize}
+\item which tools,
+\item for what purpose,
+\item confirmation that all technical content is understood.
+\end{itemize}
+
+
+\end{document}
