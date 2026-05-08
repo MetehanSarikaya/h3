@@ -1,9 +1,0 @@
-/Users/curiousspeck/qt-minesweeper/assignment3-spring26/build/CMakeFiles/2048.dir
-/Users/curiousspeck/qt-minesweeper/assignment3-spring26/build/CMakeFiles/edit_cache.dir
-/Users/curiousspeck/qt-minesweeper/assignment3-spring26/build/CMakeFiles/rebuild_cache.dir
-/Users/curiousspeck/qt-minesweeper/assignment3-spring26/build/CMakeFiles/list_install_components.dir
-/Users/curiousspeck/qt-minesweeper/assignment3-spring26/build/CMakeFiles/install.dir
-/Users/curiousspeck/qt-minesweeper/assignment3-spring26/build/CMakeFiles/install/local.dir
-/Users/curiousspeck/qt-minesweeper/assignment3-spring26/build/CMakeFiles/install/strip.dir
-/Users/curiousspeck/qt-minesweeper/assignment3-spring26/build/CMakeFiles/2048_autogen_timestamp_deps.dir
-/Users/curiousspeck/qt-minesweeper/assignment3-spring26/build/CMakeFiles/2048_autogen.dir
