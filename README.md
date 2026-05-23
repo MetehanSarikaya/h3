@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/5cKAklIT)
 # Assignment 3 Spring 2026: 2048
 
 This directory contains a simple Qt Widgets template app:
