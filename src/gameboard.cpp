@@ -14,15 +14,18 @@ GameBoard::GameBoard()
     board_.assign(N, std::vector<int>(M, 0));
 }
 
-// We clear everything and place two starting tiles.
+// We clear everything and place two starting tiles, both with value 2.
+// The assignment specifies "two tiles of value 2 each" for the initial state.
+// P/Q probabilities apply only to tiles spawned after player moves, so we
+// pass forcedValue=2 here instead of calling the probabilistic path.
 // The history stack is also wiped so undo cannot go before the new game.
 void GameBoard::reset()
 {
     while (!history_.empty()) history_.pop();
     score_ = 0;
     board_.assign(N, std::vector<int>(M, 0));
-    spawnTile();
-    spawnTile();
+    spawnTile(2);
+    spawnTile(2);
 }
 
 // We process a single row/column as a vector of ints.
@@ -170,7 +173,7 @@ bool GameBoard::slide(Direction dir)
     saveState();
     board_  = newBoard;
     score_ += totalMerge;
-    spawnTile();
+    spawnTile();   // no forced value: uses P/Q probabilities
     return true;
 }
 
@@ -240,8 +243,10 @@ std::vector<Direction> GameBoard::getValidMoves() const
 }
 
 // We collect all empty cells first, then pick one at random.
-// The new tile is 2 with P% probability and 4 with Q% probability.
-void GameBoard::spawnTile()
+// If forcedValue is non-zero we use it directly; this is used by reset() to
+// guarantee both starting tiles are 2, as the assignment requires.
+// For moves during normal play we leave forcedValue at 0 and apply P/Q.
+void GameBoard::spawnTile(int forcedValue)
 {
     std::vector<std::pair<int,int>> empties;
     for (int r = 0; r < N; ++r)
@@ -253,6 +258,12 @@ void GameBoard::spawnTile()
         return;
 
     auto [r, c] = empties[std::rand() % empties.size()];
+
+    if (forcedValue != 0) {
+        board_[r][c] = forcedValue;
+        return;
+    }
+
     int roll = std::rand() % 100;
     board_[r][c] = (roll < P) ? 2 : 4;
 }

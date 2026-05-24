@@ -23,7 +23,9 @@ class GameBoard {
 public:
     GameBoard();
 
-    // Resets everything and places two starting tiles of value 2.
+    // Resets everything and places two starting tiles, both forced to value 2
+    // as required by the assignment. P/Q probabilities only apply to tiles
+    // spawned after a player move, not to the initial board state.
     void reset();
 
     // Tries to slide in the given direction.
@@ -57,7 +59,9 @@ private:
     std::vector<int> slideLine(const std::vector<int>& line, int& mergeScore);
 
     // Places a new tile in a random empty cell.
-    void spawnTile();
+    // If forcedValue is non-zero, that value is used directly (bypassing P/Q).
+    // This lets reset() always spawn two 2-tiles regardless of the probabilities.
+    void spawnTile(int forcedValue = 0);
 
     // Saves the current board and score to the history stack.
     void saveState();
