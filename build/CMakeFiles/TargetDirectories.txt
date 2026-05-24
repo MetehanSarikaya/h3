@@ -1,0 +1,9 @@
+/mnt/c/Users/mthns/OneDrive/Desktop/2048/2048-2023400111-2023400213/build/CMakeFiles/2048.dir
+/mnt/c/Users/mthns/OneDrive/Desktop/2048/2048-2023400111-2023400213/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/mthns/OneDrive/Desktop/2048/2048-2023400111-2023400213/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/mthns/OneDrive/Desktop/2048/2048-2023400111-2023400213/build/CMakeFiles/list_install_components.dir
+/mnt/c/Users/mthns/OneDrive/Desktop/2048/2048-2023400111-2023400213/build/CMakeFiles/install.dir
+/mnt/c/Users/mthns/OneDrive/Desktop/2048/2048-2023400111-2023400213/build/CMakeFiles/install/local.dir
+/mnt/c/Users/mthns/OneDrive/Desktop/2048/2048-2023400111-2023400213/build/CMakeFiles/install/strip.dir
+/mnt/c/Users/mthns/OneDrive/Desktop/2048/2048-2023400111-2023400213/build/CMakeFiles/2048_autogen_timestamp_deps.dir
+/mnt/c/Users/mthns/OneDrive/Desktop/2048/2048-2023400111-2023400213/build/CMakeFiles/2048_autogen.dir

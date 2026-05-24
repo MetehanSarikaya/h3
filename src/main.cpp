@@ -1,11 +1,10 @@
 #include <QApplication>
-
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    app.setApplicationName("Assignment 3 Spring 26 Template");
+    app.setApplicationName("2048");
     app.setOrganizationName("CMPE230");
 
     MainWindow window;
