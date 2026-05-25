@@ -32,7 +32,9 @@ void GameBoard::reset()
 // First we remove zeros, then we merge equal adjacent pairs from left to right.
 // The leftmost pair merges first, which satisfies the "closer to border" rule.
 // Finally we pad the result back to its original length with zeros.
-std::vector<int> GameBoard::slideLine(const std::vector<int>& line, int& mergeScore)
+// Declared static so it is internal to this translation unit; it does not
+// touch any GameBoard member and belongs here rather than in the class.
+static std::vector<int> slideLine(const std::vector<int>& line, int& mergeScore)
 {
     int len = static_cast<int>(line.size());
 
@@ -70,39 +72,16 @@ std::vector<int> GameBoard::slideLine(const std::vector<int>& line, int& mergeSc
 // This lets us check whether a move is valid before committing to it,
 // which is important because invalid moves should not trigger tile spawns or undo saves.
 // For Right/Down we reverse the line before sliding so we can always slide "left".
+// We use a static helper to simulate the slide without touching the real board.
+// This lets us check whether a move is valid before committing to it,
+// which is important because invalid moves should not trigger tile spawns or undo saves.
+// For Right/Down we reverse the line before sliding so we can always slide "left".
 static bool computeSlide(
     const std::vector<std::vector<int>>& board,
     Direction dir,
     std::vector<std::vector<int>>& newBoard,
-    int& totalMerge,
-    GameBoard*)
+    int& totalMerge)
 {
-    auto slideLineLocal = [](const std::vector<int>& line, int& mergeScore) {
-        int len = static_cast<int>(line.size());
-        std::vector<int> compact;
-        for (int v : line)
-            if (v != 0)
-                compact.push_back(v);
-
-        std::vector<int> merged;
-        for (int i = 0; i < static_cast<int>(compact.size()); ) {
-            if (i + 1 < static_cast<int>(compact.size()) &&
-                compact[i] == compact[i + 1])
-            {
-                int nv = compact[i] * 2;
-                merged.push_back(nv);
-                mergeScore += nv;
-                i += 2;
-            } else {
-                merged.push_back(compact[i]);
-                ++i;
-            }
-        }
-        while (static_cast<int>(merged.size()) < len)
-            merged.push_back(0);
-        return merged;
-    };
-
     newBoard = board;
     totalMerge = 0;
     bool changed = false;
@@ -117,7 +96,7 @@ static bool computeSlide(
                 std::reverse(line.begin(), line.end());
 
             int ms = 0;
-            std::vector<int> result = slideLineLocal(line, ms);
+            std::vector<int> result = slideLine(line, ms);
             totalMerge += ms;
 
             if (dir == Direction::Right)
@@ -140,7 +119,7 @@ static bool computeSlide(
                 std::reverse(line.begin(), line.end());
 
             int ms = 0;
-            std::vector<int> result = slideLineLocal(line, ms);
+            std::vector<int> result = slideLine(line, ms);
             totalMerge += ms;
 
             if (dir == Direction::Down)
@@ -166,7 +145,7 @@ bool GameBoard::slide(Direction dir)
     std::vector<std::vector<int>> newBoard;
     int totalMerge = 0;
 
-    bool valid = computeSlide(board_, dir, newBoard, totalMerge, this);
+    bool valid = computeSlide(board_, dir, newBoard, totalMerge);
     if (!valid)
         return false;
 
@@ -236,7 +215,7 @@ std::vector<Direction> GameBoard::getValidMoves() const
     for (Direction d : all) {
         std::vector<std::vector<int>> nb;
         int tm = 0;
-        if (computeSlide(board_, d, nb, tm, nullptr))
+        if (computeSlide(board_, d, nb, tm))
             valid.push_back(d);
     }
     return valid;

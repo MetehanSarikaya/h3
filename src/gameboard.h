@@ -54,10 +54,6 @@ private:
     int score_;
     std::stack<GameState> history_;
 
-    // Slides and merges a single row or column represented as a vector.
-    // The result is always shifted towards index 0 (left / top).
-    std::vector<int> slideLine(const std::vector<int>& line, int& mergeScore);
-
     // Places a new tile in a random empty cell.
     // If forcedValue is non-zero, that value is used directly (bypassing P/Q).
     // This lets reset() always spawn two 2-tiles regardless of the probabilities.
